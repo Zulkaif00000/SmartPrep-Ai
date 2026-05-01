@@ -1,0 +1,187 @@
+/* Flashcard App Container */
+.flashcard-app {
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* Full height of the viewport */
+  width: 100vw; /* Full width of the viewport */
+  background: linear-gradient(to right, #061d6a, #274f7c, #a49e9f, #3677a3); 
+  background-size: 400% 400%; /* Creates a smoother gradient */
+  animation: gradientAnimation 15s ease infinite; /* Adds animation for dynamic effect */
+  color: #fff; /* Text color for better visibility */
+  box-sizing: border-box; /* Ensures padding doesn't affect width/height */
+  overflow: hidden; /* Prevents scrollbars */
+}
+
+/* Gradient Animation */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Flashcard Section */
+.flashcard-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Flashcard */
+.flashcard {
+  width: 90%; /* Occupies a good portion of the screen */
+  height: 50%; /* Dynamic height */
+  max-width: 600px; /* Restricts maximum size for larger screens */
+  max-height: 400px; /* Restricts maximum height */
+  perspective: 1000px; /* 3D effect */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+.navbar56 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Transparent black */
+  background: linear-gradient(135deg, #0c3a6d, #4d606a, #063363);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  z-index: 1000; /* Ensures navbar is always on top */
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+
+.flashcard-front,
+.flashcard-back {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem; 
+  font-weight: bold;
+  padding: 20px;
+  border-radius: 15px;
+  transition: transform 0.6s ease-in-out;
+}
+
+.flashcard-front {
+  background: linear-gradient(to bottom, #ae1797, #842a6d);
+  color: white;
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.flashcard-back {
+  background: linear-gradient(to bottom, #4c51bf, #2e3a73);
+  color: white;
+  transform: rotateY(180deg);
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.1);
+}
+
+.flipped .flashcard-front {
+  transform: rotateY(180deg);
+}
+
+.flipped .flashcard-back {
+  transform: rotateY(0deg);
+}
+
+/* Time Settings */
+.time-settings {
+  margin: 20px 0;
+  text-align: center;
+}
+
+.time-settings label {
+  font-size: 1rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #fff;
+  display: block;
+}
+
+.time-input {
+  padding: 10px;
+  font-size: 1rem;
+  border-radius: 5px;
+  border: none;
+  width: 200px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* Next Button */
+.next-button {
+  padding: 15px 25px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  background: linear-gradient(to right, #1e497d, #becabe);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  margin-top: 20px;
+}
+
+.next-button:hover {
+  background: linear-gradient(to right, #1f0f7b, #b9beb9);
+  transform: scale(1.05);
+}
+
+/* Search Form */
+.search-form {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.search-input {
+  padding: 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 5px;
+  width: 300px;
+  margin-right: 10px;
+}
+
+.search-button {
+  padding: 12px 20px;
+  font-size: 1rem;
+  background-color: #5a67d8;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.search-button:hover {
+  background-color: #4c51bf;
+  transform: scale(1.05);
+}

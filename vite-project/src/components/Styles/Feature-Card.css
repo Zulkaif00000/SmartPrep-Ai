@@ -1,0 +1,130 @@
+
+.card p {
+    font-size: 17px;
+    font-weight: 400;
+    line-height: 20px;
+    color: #666;
+  }
+  
+  .card p.small {
+    font-size: 14px;
+  }
+  
+  /* Go Arrow Positioning */
+  .go-corner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    overflow: hidden;
+    top: 0;
+    right: 0;
+    background-color: #7916b3;
+    border-radius: 0 4px 0 32px;
+  }
+  
+  .go-arrow {
+    margin-top: -4px;
+    margin-right: -4px;
+    color: white;
+    font-family: courier, sans;
+  }
+  
+  /* Card Styling */
+  .card1 {
+    display: block;
+    position: relative;
+    max-width: 262px;
+    background-color: #f2f8f9;
+    border-radius: 4px;
+    padding: 32px 24px;
+    margin: 12px;
+    text-decoration: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  
+  /* Hover Effects */
+  .card1:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: -16px;
+    right: -16px;
+    background: #7916b3;
+    height: 32px;
+    width: 32px;
+    border-radius: 32px;
+    transform: scale(1);
+    transition: transform 0.25s ease-out;
+  }
+  
+  .card1:hover:before {
+    transform: scale(21);
+  }
+  
+  .card1:hover p {
+    transition: all 0.3s ease-out;
+    color: rgba(255, 255, 255, 0.8);
+  }
+  
+  .card1:hover h3 {
+    transition: all 0.3s ease-out;
+    color: #fff;
+  }
+  
+  /* Features Section Container */
+  .features-section {
+    text-align: center; /* Centers the "Our Features" heading */
+    background-color: #e0e0e0;  
+    padding: 40px 0; /* Optional: Add some padding for spacing */
+    margin-top: 0; /* Remove any top margin */
+  margin-bottom: 0; /* Remove any bottom margin if needed */
+  }
+  
+  
+  .features-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    gap: 20px;               /* Add space between the feature cards */
+    flex-wrap: wrap;         /* Allow the feature cards to wrap on smaller screens */
+    margin-top: 30px;        /* Optional: Add margin at the top */
+  }
+  
+  /* Feature Card Styling */
+  .feature {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;     /* Center the text inside each feature card */
+    width: 250px;           /* Set a fixed width for the feature cards */
+    min-width: 200px;       /* Ensure it doesn't get too narrow */
+    display: flex;
+    flex-direction: column; /* Stack elements (title, description, arrow) vertically */
+    justify-content: space-between; /* Space out the content */
+    height: 250px;          /* Set a fixed height for consistent card sizing */
+  }
+  
+  /* Hover Effects for Feature Cards */
+  .feature:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  /* Mobile responsiveness */
+  @media (max-width: 768px) {
+    .features-container {
+      flex-direction: column;  /* Stack the cards vertically on smaller screens */
+      align-items: center;     /* Center align the feature cards */
+    }
+    
+    .feature {
+      width: 100%;             /* Set the width of feature cards to 100% on small screens */
+      height: auto;            /* Adjust height automatically */
+      max-width: 400px;        /* Limit the maximum width of feature cards */
+    }
+  }

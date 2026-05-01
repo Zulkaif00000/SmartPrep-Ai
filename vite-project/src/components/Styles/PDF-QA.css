@@ -1,0 +1,197 @@
+/* PDF-QA Container */
+.pdf-qa-container {
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: row; /* Align content and answer container horizontally */
+  justify-content: center; /* Space between content and answers */
+  align-items: center; /* Align content at the top */
+  height: 100vh; /* Full height of the viewport */
+  width: 100vw; /* Full width of the viewport */
+  background: linear-gradient(to right, #061d6a, #274f7c, #a49e9f, #3677a3); /* Multi-color gradient */
+  background-size: 400% 400%; /* Creates a smoother gradient */
+  animation: gradientAnimation 15s ease infinite; /* Adds animation for dynamic effect */
+  color: #fff; /* Text color for better visibility */
+  box-sizing: border-box; /* Ensures padding doesn't affect width/height */
+  overflow: hidden; /* Prevents scrollbars */
+  padding: 20px 40px; /* Adjust padding for spacing */
+}
+
+/* Gradient Animation */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Navbar Styles */
+.navbar5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Transparent black */
+  background: linear-gradient(135deg, #0c3a6d, #4d606a, #063363);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  color: #fff;
+  z-index: 1000; /* Ensures navbar is always on top */
+}
+
+.navbar-brand {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.Dashboard-button {
+  background-color: #4c51bf;
+  color: #fff;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.Dashboard-button:hover {
+  background-color: #3b3f9d;
+  font-weight: bold;
+  transform: scale(1.05);
+}
+
+/* Content Wrapper */
+.pdf-qa-content {
+  width: 45%;
+  background: rgba(255, 255, 255, 0.1); /* Transparent white background */
+  padding: 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(190, 70, 156, 0.7);
+  text-align: center;
+}
+
+/* Heading */
+.pdf-qa-container h1 {
+  color: #f1eded;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Upload Section */
+.pdf-upload-section {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.upload-label {
+  font-size: 1.2rem;
+  margin-bottom: 10px;
+  color: #f7f2f2;
+}
+
+.file-input {
+  margin: 10px auto;
+  padding: 10px;
+  font-size: 1rem;
+  background-color: rgba(190, 70, 156, 0.8);
+  border: none;
+  border-radius: 5px;
+  width: 100%;
+  color: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.file-name {
+  font-size: 0.9rem;
+  color: #f2f0f0;
+  margin-top: 10px;
+}
+
+/* Question Form */
+.question-form {
+  margin-top: 20px;
+  width: 100%;
+}
+
+.question-input {
+  width: 100%;
+  height: 100px;
+  font-size: 1rem;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  color: #333;
+  background-color: #f8f9fa;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Submit Button */
+.submit-button {
+  background-color: #5a67d8;
+  color: #fff;
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.submit-button:hover {
+  background-color: #4c51bf;
+  transform: scale(1.05);
+}
+
+/* Answer Container */
+.answer-container {
+  width: 45%; /* Adjusted width for the answer container */
+  max-height: 80vh; /* Limit height for scrolling */
+  overflow-y: auto;
+  background: rgba(0, 0, 0, 0.6); /* Slightly transparent background */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+}
+
+.answer-container h3 {
+  color: #fbf8f8;
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+}
+
+.answer-list {
+  font-size: 1rem;
+  color: #f3efef;
+  list-style-type: disc;
+  margin-left: 20px;
+  line-height: 1.6;
+}
+
+.answer-list li {
+  margin-bottom: 10px;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .pdf-qa-container {
+    flex-direction: column; /* Stack elements on smaller screens */
+    align-items: center;
+  }
+
+  .pdf-qa-content,
+  .answer-container {
+    width: 90%;
+    margin-bottom: 20px; /* Add spacing for stacked elements */
+  }
+}

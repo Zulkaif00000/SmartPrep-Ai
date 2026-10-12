@@ -115,7 +115,8 @@ pool.connect((err, client, release) => {
 
 // OpenAI Configuration
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,
+  apiKey: process.env.OPENROUTER_API_KEY,
+  baseURL: "https://openrouter.ai/api/v1",
 });
 
 // Multer Setup for File Uploads
@@ -170,7 +171,7 @@ const extractTextFromPDF = async (filePath) => {
 const getQuizFromOpenAI = async (topic, numQuestions, difficulty) => {
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "openrouter/auto",
       messages: [
         {
           role: "user",
@@ -184,7 +185,9 @@ const getQuizFromOpenAI = async (topic, numQuestions, difficulty) => {
       ],
     });
     
-    const quiz = JSON.parse(response.choices[0].message.content.trim());
+    const raw = response.choices[0].message.content;
+    const cleaned = raw.replace(/```json|```/g, "").trim();
+    const quiz = JSON.parse(cleaned);
     return quiz;
   } catch (error) {
     console.error("Error generating quiz:", error.message);
@@ -241,7 +244,7 @@ app.post("/api/quizzes/submit", authenticateToken, async (req, res) => {
 const getFlashcardsFromOpenAI = async (topic, numFlashcards) => {
   try {
     const response = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "openrouter/auto",
       messages: [
         {
           role: "user",
@@ -258,7 +261,9 @@ const getFlashcardsFromOpenAI = async (topic, numFlashcards) => {
       throw new Error("No response from OpenAI.");
     }
 
-    const flashcards = JSON.parse(response.choices[0].message.content.trim());
+    const raw = response.choices[0].message.content;
+    const cleaned = raw.replace(/```json|```/g, "").trim();
+    const flashcards = JSON.parse(cleaned);
     if (!Array.isArray(flashcards)) {
       throw new Error("Invalid format from OpenAI. Expected an array of flashcards.");
     }
@@ -342,7 +347,7 @@ app.post("/api/pdf-qa", upload.single("file"), async (req, res) => {
     const extractedText = await extractTextFromPDF(file.path);
 
     const response = await openai.chat.completions.create({
-      model: "gpt-4",
+      model: "openrouter/auto",
       messages: [
         {
           role: "user",

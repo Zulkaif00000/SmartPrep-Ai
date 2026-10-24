@@ -14,7 +14,14 @@ const { Pool } = pkg;
 
 dotenv.config(); // Load environment variables
 
-
+// Local-dev workaround for machines where antivirus/proxy breaks Node TLS
+// (UNABLE_TO_VERIFY_LEAF_SIGNATURE). Do not enable in production.
+if (process.env.ALLOW_INSECURE_TLS === "true") {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+  console.warn(
+    "ALLOW_INSECURE_TLS=true: TLS certificate verification is disabled. Use only for local development."
+  );
+}
 
 // App Initialization
 const app = express();
@@ -26,13 +33,20 @@ app.use(bodyParser.json());
 
 
 // PostgreSQL Pool Configuration
-const pool = new Pool({
-  user: process.env.DB_USER  || "postgres",
-  host: process.env.DB_HOST || "localhost",
-  database: process.env.DB_NAME,
-  password: process.env.DB_PASSWORD,
-  port: process.env.DB_PORT || 5432,
-});
+
+ // PostgreSQL Pool Configuration
+const pool = process.env.DATABASE_URL
+  ? new Pool({
+      connectionString: process.env.DATABASE_URL,
+    })
+  : new Pool({
+      user: process.env.DB_USER || "postgres",
+      host: process.env.DB_HOST || "localhost",
+      database: process.env.DB_NAME,
+      password: process.env.DB_PASSWORD,
+      port: process.env.DB_PORT || 5432,
+    });
+
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
@@ -113,10 +127,14 @@ pool.connect((err, client, release) => {
 
 
 
-// OpenAI Configuration
+// OpenAI Configuration (via OpenRouter)
 const openai = new OpenAI({
   apiKey: process.env.OPENROUTER_API_KEY,
   baseURL: "https://openrouter.ai/api/v1",
+  defaultHeaders: {
+    "HTTP-Referer": process.env.APP_URL || "http://localhost:5173",
+    "X-Title": "SmartPrep AI",
+  },
 });
 
 // Multer Setup for File Uploads
@@ -167,6 +185,14 @@ const extractTextFromPDF = async (filePath) => {
   return extractedText;
 };
 
+// Normalize model output into the array shape the frontend expects
+const normalizeQuizQuestions = (parsed) => {
+  if (Array.isArray(parsed)) return parsed;
+  if (Array.isArray(parsed?.questions)) return parsed.questions;
+  if (Array.isArray(parsed?.quiz?.questions)) return parsed.quiz.questions;
+  throw new Error("Invalid quiz format from model. Expected an array of questions.");
+};
+
 // Function to Fetch a Quiz from OpenAI
 const getQuizFromOpenAI = async (topic, numQuestions, difficulty) => {
   try {
@@ -177,7 +203,8 @@ const getQuizFromOpenAI = async (topic, numQuestions, difficulty) => {
           role: "user",
           content: `Generate a quiz with ${numQuestions} multiple-choice questions about "${topic}". 
                     Each question should have 4 options and indicate the correct answer. 
-                    Make the difficulty level "${difficulty}". Provide the result as structured JSON, with each entry having:
+                    Make the difficulty level "${difficulty}".
+                    Return ONLY a JSON array (no wrapper object, no markdown). Each item must have:
                     - question (string)
                     - options (array of 4 strings)
                     - correct (index of correct option, 0-based).`,
@@ -187,14 +214,18 @@ const getQuizFromOpenAI = async (topic, numQuestions, difficulty) => {
     
     const raw = response.choices[0].message.content;
     const cleaned = raw.replace(/```json|```/g, "").trim();
-    const quiz = JSON.parse(cleaned);
+    const quiz = normalizeQuizQuestions(JSON.parse(cleaned));
     return quiz;
   } catch (error) {
-    console.error("Error generating quiz:", error.message);
-    throw new Error("Failed to generate quiz from OpenAI:", error.message);
+    const detail = error.cause?.code || error.cause?.message || error.message;
+    console.error("Error generating quiz:", detail);
+    if (detail === "UNABLE_TO_VERIFY_LEAF_SIGNATURE" || error.message === "Connection error.") {
+      console.error(
+        "Hint: Node cannot verify HTTPS certificates. Set ALLOW_INSECURE_TLS=true in backend/.env for local development, or fix your antivirus SSL scanning / system CA store."
+      );
+    }
+    throw new Error(`Failed to generate quiz from OpenAI: ${detail}`);
   }
-  
-  
 };
 
 
@@ -270,8 +301,14 @@ const getFlashcardsFromOpenAI = async (topic, numFlashcards) => {
 
     return flashcards;
   } catch (error) {
-    console.error("Error generating flashcards:", error.message);
-    throw new Error("Failed to generate flashcards from OpenAI");
+    const detail = error.cause?.code || error.cause?.message || error.message;
+    console.error("Error generating flashcards:", detail);
+    if (detail === "UNABLE_TO_VERIFY_LEAF_SIGNATURE" || error.message === "Connection error.") {
+      console.error(
+        "Hint: Node cannot verify HTTPS certificates. Set ALLOW_INSECURE_TLS=true in backend/.env for local development, or fix your antivirus SSL scanning / system CA store."
+      );
+    }
+    throw new Error(`Failed to generate flashcards from OpenAI: ${detail}`);
   }
 };
 

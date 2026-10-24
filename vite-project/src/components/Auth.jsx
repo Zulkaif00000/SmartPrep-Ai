@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios"; // Axios for API calls
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import "./Styles/Auth.css";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 function Auth() {
   const [isRightPanelActive, setIsRightPanelActive] = useState(false);
@@ -22,7 +23,7 @@ function Auth() {
   const handleSignIn = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/users/login", signInData);
+      const response = await axios.post(`${API_URL}/api/users/login`, signInData);
       const { token, user } = response.data;
       localStorage.setItem("token", token); // Save token in localStorage
       localStorage.setItem("userName", user.username); // Save username in localStorage
@@ -38,7 +39,7 @@ function Auth() {
   const handleSignUp = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5000/api/users/register", signUpData);
+      const response = await axios.post(`${API_URL}/api/users/register`, signUpData);
       alert("Registration successful. You can now sign in.");
       setIsRightPanelActive(false); // Switch to the sign-in panel after registration
     } catch (error) {

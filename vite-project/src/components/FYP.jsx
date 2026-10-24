@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import "./Styles/FYP.css";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+
 
 function ForgotPassword() {
   const [email, setEmail] = useState("");
@@ -19,7 +21,7 @@ function ForgotPassword() {
     }
 
     try {
-      const response = await axios.post("http://localhost:5000/api/users/forgot-password", {
+      const response = await axios.post(`${API_URL}/api/users/forgot-password`, {
         email,
         newPassword,
       });

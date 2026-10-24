@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // For navigation
 import { Sparkles, ArrowLeft } from "lucide-react";
 import "./Styles/Autoquiz.css";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const AutoQuiz = () => {
   const [quizStarted, setQuizStarted] = useState(false);
@@ -25,7 +26,7 @@ const AutoQuiz = () => {
     // Fetch user's name
     const fetchUserName = async () => {
       try {
-        const response = await fetch("http://localhost:5000/api/profile", {
+        const response = await fetch(`${API_URL}/api/profile`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -66,7 +67,7 @@ const AutoQuiz = () => {
     setButtonText("Fetching Questions..."); // Update button text
 
     try {
-      const response = await fetch("http://localhost:5000/api/generate-quiz", {
+      const response = await fetch(`${API_URL}/api/generate-quiz`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -112,7 +113,7 @@ const AutoQuiz = () => {
 
   const saveQuizResults = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/quizzes/submit", {
+      const response = await fetch(`${API_URL}/api/quizzes/submit`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

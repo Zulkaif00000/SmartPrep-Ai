@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, ArrowLeft } from "lucide-react";
 import "./Styles/Flashcard.css";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const FlashcardApp = () => {
   const [topic, setTopic] = useState("");
@@ -34,7 +35,7 @@ const FlashcardApp = () => {
     setButtonText("Fetching Flashcards..."); // Update button text
 
     try {
-      const response = await fetch("http://localhost:5000/api/generate-flashcards", {
+      const response = await ffetch(`${API_URL}/api/generate-flashcards`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic, numFlashcards }),
@@ -71,7 +72,7 @@ const FlashcardApp = () => {
         flashcards: completedFlashcards,
       });
   
-      const response = await fetch("http://localhost:5000/api/flashcards", {
+      const response = await fetch(`${API_URL}/api/flashcards`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

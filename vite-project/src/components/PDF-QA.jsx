@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Sparkles, ArrowLeft, Upload } from "lucide-react";
 import "./Styles/PDF-QA.css";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const PDFQA = () => {
   const [pdfFile, setPdfFile] = useState(null);
@@ -38,7 +39,7 @@ const PDFQA = () => {
     formData.append("question", question);
 
     try {
-      const response = await fetch("http://localhost:5000/api/pdf-qa", {
+      const response = await fetch(`${API_URL}/api/pdf-qa`, {
         method: "POST",
         body: formData,
       });

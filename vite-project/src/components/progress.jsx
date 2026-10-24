@@ -18,6 +18,7 @@ import {
   ResponsiveContainer as PieResponsiveContainer,
 } from "recharts";
 import { Sparkles, ArrowLeft } from "lucide-react";
+const API_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
 const Progress = () => {
   const [progressData, setProgressData] = useState({
@@ -38,7 +39,7 @@ const Progress = () => {
       const token = localStorage.getItem("token");
 
       try {
-        const response = await fetch("http://localhost:5000/api/progress", {
+        const response = await fetch(`${API_URL}/api/progress`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 

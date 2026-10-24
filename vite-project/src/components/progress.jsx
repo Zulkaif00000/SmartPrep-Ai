@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import "./styles/progress.css";
+import "./Styles/progress.css";
 import {
   LineChart,
   Line,
@@ -17,6 +17,7 @@ import {
   Tooltip as PieTooltip,
   ResponsiveContainer as PieResponsiveContainer,
 } from "recharts";
+import { Sparkles, ArrowLeft } from "lucide-react";
 
 const Progress = () => {
   const [progressData, setProgressData] = useState({
@@ -84,80 +85,103 @@ const Progress = () => {
   return (
     <div className="progress-container">
       {/* Navbar */}
-      <div className="navbar7">
-        <div className="navbar-brand">SmartPrep AI</div>
+      <header className="navbar7">
+        <div className="navbar-brand">
+          <span className="app-brand__mark" aria-hidden="true">
+            <Sparkles size={15} strokeWidth={2.4} />
+          </span>
+          <span>smartprep<span className="app-brand__ai">.ai</span></span>
+        </div>
         <div className="navbar-links">
           <button
+            type="button"
             className="Dashoard"
             onClick={() => (window.location.href = "/feature")}
           >
+            <ArrowLeft size={14} strokeWidth={2.4} aria-hidden="true" />
             Dashboard
           </button>
         </div>
-      </div>
+      </header>
 
-      {/* Main Content */}
-      <h1>User Progress Overview</h1>
-      <div className="progress-summary">
-        <p>Total Quizzes Taken: {progressData.totalQuizzes}</p>
-        <p>Quiz Completion Rate: {progressData.quizCompletionRate}%</p>
-        <p>Total Flashcards Created: {progressData.totalFlashcards}</p>
-      </div>
+      <main className="progress-main">
+        <div className="progress-intro-block">
+          <span className="app-eyebrow">INSIGHTS</span>
+          <h1>User Progress Overview</h1>
+          <p className="progress-kicker">A calm look at how your study sessions are adding up.</p>
+        </div>
 
-      {/* Daily Progress Line Chart */}
-      <div className="chart-container">
-        <h2>Daily Progress Report</h2>
-        <ResponsiveContainer width="100%" height={300}>
-          <LineChart data={dailyProgress}>
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-    dataKey="day"
-    tick={{ fill: "#ffffff", fontSize: 14, fontWeight: "bold" }} // Custom tick styles
-    stroke="#ffffff" // Optional: Changes the axis line color
-  />
-    <YAxis
-    tick={{ fill: "#ffffff", fontSize: 14, fontWeight: "bold" }}
-    stroke="#ffffff"
-  />
-  
-            <Tooltip />
-            <Legend />
-            <Line
-              type="monotone"
-              dataKey="progress"
-              stroke="#4caf50"
-              strokeWidth={3}
-              activeDot={{ r: 8 }}
-            />
-          </LineChart>
-        </ResponsiveContainer>
-      </div>
+        <div className="progress-summary">
+          <div className="progress-stat-card">
+            <span className="progress-stat-label">Total Quizzes Taken</span>
+            <p className="progress-stat-value">{progressData.totalQuizzes}</p>
+          </div>
+          <div className="progress-stat-card">
+            <span className="progress-stat-label">Quiz Completion Rate</span>
+            <p className="progress-stat-value">{progressData.quizCompletionRate}%</p>
+          </div>
+          <div className="progress-stat-card">
+            <span className="progress-stat-label">Total Flashcards Created</span>
+            <p className="progress-stat-value">{progressData.totalFlashcards}</p>
+          </div>
+        </div>
 
-      {/* Goal Progress Pie Chart */}
-      <div className="goal-progress-container">
-        <h2>Goal Completion Breakdown</h2>
-        <PieResponsiveContainer width="100%" height={300}>
-          <PieChart>
-            <Pie
-              data={goalCompletionData}
-              dataKey="value"
-              nameKey="name"
-              outerRadius={100}
-              label
-            >
-              <Cell key="quizCompletion" fill="#4caf50" />
-              <Cell key="remaining" fill="#ff9800" />
-            </Pie>
-            <PieTooltip />
-          </PieChart>
-        </PieResponsiveContainer>
-      </div>
+        <div className="progress-charts">
+          {/* Daily Progress Line Chart */}
+          <section className="chart-container" aria-labelledby="daily-progress-heading">
+            <h2 id="daily-progress-heading">Daily Progress Report</h2>
+            <ResponsiveContainer width="100%" height={300}>
+              <LineChart data={dailyProgress}>
+                <CartesianGrid strokeDasharray="3 3" stroke="rgba(32, 22, 45, 0.1)" />
+                <XAxis
+                  dataKey="day"
+                  tick={{ fill: "#777181", fontSize: 12, fontWeight: 600 }}
+                  stroke="#c9c4ce"
+                />
+                <YAxis
+                  tick={{ fill: "#777181", fontSize: 12, fontWeight: 600 }}
+                  stroke="#c9c4ce"
+                />
+                <Tooltip />
+                <Legend />
+                <Line
+                  type="monotone"
+                  dataKey="progress"
+                  stroke="#6d42e5"
+                  strokeWidth={3}
+                  activeDot={{ r: 8 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </section>
 
-      {/* Motivational Quote */}
-      <div className="quote-container">
-        <h2>Stay Motivated</h2>
-        <p>{randomQuote}</p>
-      </div>
+          {/* Goal Progress Pie Chart */}
+          <section className="goal-progress-container" aria-labelledby="goal-progress-heading">
+            <h2 id="goal-progress-heading">Goal Completion Breakdown</h2>
+            <PieResponsiveContainer width="100%" height={300}>
+              <PieChart>
+                <Pie
+                  data={goalCompletionData}
+                  dataKey="value"
+                  nameKey="name"
+                  outerRadius={100}
+                  label
+                >
+                  <Cell key="quizCompletion" fill="#6d42e5" />
+                  <Cell key="remaining" fill="#e4dafb" />
+                </Pie>
+                <PieTooltip />
+              </PieChart>
+            </PieResponsiveContainer>
+          </section>
+        </div>
+
+        {/* Motivational Quote */}
+        <section className="quote-container" aria-labelledby="quote-heading">
+          <h2 id="quote-heading">Stay Motivated</h2>
+          <p>{randomQuote}</p>
+        </section>
+      </main>
     </div>
   );
 };

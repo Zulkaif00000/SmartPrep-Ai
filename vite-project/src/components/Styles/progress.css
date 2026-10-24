@@ -1,264 +1,295 @@
-.navbar7 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Transparent black */
-  background: linear-gradient(135deg, #0c3a6d, #6ea6c4, #063363);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  color: #fff;
-  z-index: 1000; /* Ensures navbar is always on top */
-}
-
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
-}
-
-/* Overall Page Styles */
 .progress-container {
-  font-family: 'Arial', sans-serif;
+  --app-ink: #20162d;
+  --app-muted: #777181;
+  --app-paper: #f7f5f1;
+  --app-purple: #6d42e5;
+  --app-lilac: #c5adff;
+  --app-line: rgba(32, 22, 45, 0.12);
+  position: relative;
   display: flex;
+  min-height: 100vh;
+  width: 100%;
   flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  width: 100vw; /* Full width of the viewport */
-  background: linear-gradient(to right, #061d6a, #274f7c, #a49e9f, #3677a3); 
-  background-size: 400% 400%; /* Creates a smoother gradient */
-  animation: gradientAnimation 15s ease infinite; /* Adds animation for dynamic effect */
-  color: #fff; /* Text color for better visibility */
-  box-sizing: border-box; /* Ensures padding doesn't affect width/height */
-  overflow: hidden; /* Prevents scrollbars */
-  padding: 100px;
-}
-
-/* Keyframes for Fade-in Animation */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(10%);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Heading */
-h1 {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 30px;
-  text-align: center;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3), 2px 2px 20px #1d3557; /* 3D shadow effect */
-  letter-spacing: 2px;
-  animation: popUp 1s ease-in-out; /* Pop-up animation */
-}
-
-/* Keyframes for Pop-up Animation */
-@keyframes popUp {
-  0% {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Progress Bar Section */
-.progress-bar-container {
-  width: 80%;
-  height: 25px;
-  background-color: rgba(255, 255, 255, 0.2); /* Subtle background */
-  border-radius: 15px;
-  margin: 20px 0;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  box-shadow: inset 0 4px 6px rgba(0, 0, 0, 0.3);
-}
-
-.progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, #06d6a0, #118ab2); /* Gradient progress bar */
-  border-radius: 15px;
-  transition: width 0.5s ease-in-out;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-}
-
-/* Button Style */
-.increase-button {
-  padding: 12px 25px;
-  background: linear-gradient(145deg, #06d6a0, #118ab2);
-  color: white;
-  border: none;
-  border-radius: 30px;
-  font-size: 1.1rem;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-  margin-top: 20px;
-  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-}
-
-.increase-button:hover {
-  background: linear-gradient(145deg, #118ab2, #06d6a0);
-  transform: translateY(-5px); /* Lift effect on hover */
-  box-shadow: 0 12px 20px rgba(0, 0, 0, 0.3);
-}
-
-.increase-button:active {
-  transform: translateY(2px); /* Pressed effect */
-  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.2);
-}
-
-/* Chart Section */
-.chart-container {
-  width: 80%;
-  margin-top: 30px;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  animation: slideIn 1.5s ease-in-out; /* Slide-in effect */
-}
-
-.chart-container h2 {
-  font-size: 1.6rem;
-  color: #fff;
-  margin-bottom: 20px;
-  text-align: center;
-  text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3), 1px 1px 5px #457b9d; /* 3D shadow effect */
-}
-
-/* Keyframes for Slide-in Animation */
-@keyframes slideIn {
-  from {
-    transform: translateX(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateX(0);
-    opacity: 1;
-  }
-}
-
-/* Completed Tasks Section */
-.tasks-container {
-  margin-top: 40px;
-  font-size: 1.1rem;
-  width: 80%;
-}
-
-.tasks-list {
-  list-style-type: none;
+  align-items: stretch;
+  color: var(--app-ink);
+  background:
+    radial-gradient(ellipse at 8% 10%, rgba(197, 173, 255, 0.2), transparent 32%),
+    radial-gradient(ellipse at 96% 92%, rgba(164, 127, 239, 0.15), transparent 34%),
+    var(--app-paper);
+  font-family: "DM Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+  overflow: visible;
   padding: 0;
 }
 
-.tasks-list li {
-  background-color: rgba(255, 255, 255, 0.2);
-  margin: 10px 0;
-  padding: 12px;
-  border-radius: 10px;
-  transition: background-color 0.3s ease, transform 0.3s ease;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+.progress-container *,
+.progress-container *::before,
+.progress-container *::after {
+  box-sizing: border-box;
 }
 
-.tasks-list li:hover {
-  background-color: rgba(255, 255, 255, 0.3);
-  transform: scale(1.02);
-}
-
-/* Goal Progress Pie Chart Section */
-.goal-progress-container {
-  margin-top: 40px;
-  width: 80%;
-  background-color: rgba(255, 255, 255, 0.1);
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-  animation: zoomIn 1.5s ease-in-out; /* Zoom-in effect */
-}
-
-/* Keyframes for Zoom-in Animation */
-@keyframes zoomIn {
-  from {
-    transform: scale(0.8);
-    opacity: 0;
-  }
-  to {
-    transform: scale(1);
-    opacity: 1;
-  }
-}
-
-/* Motivational Quote Section */
-.quote-container {
-  margin-top: 40px;
-  font-size: 1.2rem;
-  font-style: italic;
-  color: #ddd;
-  text-align: center;
-}
-
-.quote-container h2 {
-  font-size: 1.5rem;
+.progress-container .app-brand__mark {
+  display: inline-grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
   color: #fff;
-  margin-bottom: 15px;
-  font-weight: 600;
-  text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.3), 1px 1px 10px #118ab2;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #a17aff, #6942df 75%);
+  box-shadow: 0 4px 12px rgba(109, 66, 229, 0.25);
+  flex-shrink: 0;
 }
 
-/* Responsive Design */
-@media (max-width: 768px) {
-  .progress-container {
-    padding: 20px;
-  }
-
-  h1 {
-    font-size: 2rem;
-  }
-
-  .progress-bar-container,
-  .chart-container,
-  .tasks-container,
-  .goal-progress-container {
-    width: 90%;
-  }
-
-  .quote-container {
-    font-size: 1rem;
-  }
-}
-.progress-summary {
-  text-align: center;
-  margin: 20px;
+.progress-container .app-brand__ai {
+  color: #8b6ee4;
 }
 
-.progress-summary p {
-  font-size: 1.2rem;
-  margin: 10px 0;
+.progress-container .app-eyebrow {
+  display: inline-block;
+  margin: 0 0 10px;
+  color: #8b6ee4;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
 }
 
-.navbar7 {
+/* Navbar */
+.progress-container .navbar7 {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
+  width: 100%;
+  min-height: 68px;
+  align-items: center;
   justify-content: space-between;
-  background: linear-gradient(135deg, #0c3a6d, #4d606a, #063363);
-  padding: 10px 20px;
-  background-color: #4caf50;
-  color: white;
+  padding: 0 clamp(18px, 4vw, 48px);
+  border-bottom: 1px solid var(--app-line);
+  background: rgba(247, 245, 241, 0.92);
+  backdrop-filter: blur(10px);
+  color: var(--app-ink);
+  box-shadow: none;
 }
 
-.chart-container,
-.goal-progress-container {
-  margin: 20px 0;
+.progress-container .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--app-ink);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
 }
 
-.quote-container {
-  text-align: center;
-  margin-top: 30px;
+.progress-container .navbar-links {
+  display: flex;
+  align-items: center;
+}
+
+.progress-container .Dashoard {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 16px;
+  color: #655e6d;
+  border: 1px solid var(--app-line);
+  border-radius: 999px;
+  background: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
+}
+
+.progress-container .Dashoard:hover {
+  color: var(--app-purple);
+  border-color: rgba(109, 66, 229, 0.35);
+  box-shadow: 0 4px 12px rgba(109, 66, 229, 0.1);
+}
+
+.progress-container .Dashoard:focus-visible {
+  outline: 2px solid #9a7be9;
+  outline-offset: 2px;
+}
+
+.progress-main {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 48px) clamp(18px, 4vw, 40px) 72px;
+}
+
+.progress-intro-block {
+  margin-bottom: 28px;
+  text-align: left;
+}
+
+.progress-container h1 {
+  margin: 0 0 8px;
+  color: var(--app-ink);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 400;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  text-align: left;
+  text-shadow: none;
+  animation: none;
+}
+
+.progress-kicker {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.progress-container .progress-summary {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 0 0 24px;
+  text-align: left;
+}
+
+.progress-stat-card {
+  padding: 22px 20px;
+  border: 1px solid rgba(32, 22, 45, 0.08);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: 0 12px 32px rgba(44, 30, 62, 0.06);
+}
+
+.progress-stat-label {
+  display: block;
+  margin: 0 0 10px;
+  color: var(--app-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+}
+
+.progress-stat-value {
+  margin: 0;
+  color: var(--app-ink);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: clamp(28px, 3vw, 36px);
+  font-weight: 400;
+  letter-spacing: -0.8px;
+  line-height: 1.1;
+}
+
+.progress-charts {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.progress-container .chart-container,
+.progress-container .goal-progress-container {
+  width: 100%;
+  margin: 0;
+  padding: clamp(22px, 3vw, 28px);
+  border: 1px solid rgba(32, 22, 45, 0.08);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(44, 30, 62, 0.07);
+  animation: none;
+}
+
+.progress-container .chart-container h2,
+.progress-container .goal-progress-container h2 {
+  margin: 0 0 18px;
+  color: var(--app-ink);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  text-align: left;
+  text-shadow: none;
+}
+
+.progress-container .quote-container {
+  margin-top: 4px;
+  padding: clamp(28px, 4vw, 40px);
+  color: #fff;
+  border-radius: 18px;
+  isolation: isolate;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 78% 16%, rgba(183, 142, 255, 0.27), transparent 35%),
+    radial-gradient(ellipse at 26% 94%, rgba(136, 84, 215, 0.23), transparent 40%),
+    linear-gradient(125deg, #1c102c 0%, #2b1743 58%, #21112f 100%);
+  box-shadow: 0 20px 48px rgba(44, 30, 62, 0.16);
+  text-align: left;
+  font-style: normal;
+}
+
+.progress-container .quote-container::before {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  opacity: 0.16;
+  background-image: radial-gradient(rgba(236, 224, 255, 0.45) 0.7px, transparent 0.7px);
+  background-size: 19px 19px;
+}
+
+.progress-container .quote-container {
+  position: relative;
+}
+
+.progress-container .quote-container h2 {
+  margin: 0 0 14px;
+  color: #d3c0ff;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  text-shadow: none;
+  font-family: "DM Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.progress-container .quote-container p {
+  margin: 0;
+  max-width: 720px;
+  color: rgba(247, 241, 255, 0.88);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: clamp(18px, 2.4vw, 24px);
   font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 1.55;
+}
+
+@media (max-width: 900px) {
+  .progress-container .progress-summary,
+  .progress-charts {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .progress-container .navbar7 {
+    padding: 0 14px;
+  }
+
+  .progress-container .chart-container,
+  .progress-container .goal-progress-container {
+    padding: 18px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .progress-container *,
+  .progress-container *::before,
+  .progress-container *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
 }

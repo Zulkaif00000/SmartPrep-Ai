@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; // For navigation
-import "./Styles/AutoQuiz.css";
+import { Sparkles, ArrowLeft } from "lucide-react";
+import "./Styles/Autoquiz.css";
 
 const AutoQuiz = () => {
   const [quizStarted, setQuizStarted] = useState(false);
@@ -148,113 +149,150 @@ const AutoQuiz = () => {
   return (
     <div className="auto-quiz-container">
       {/* Navbar */}
-      <div className="navbar4">
+      <header className="navbar4">
         <div className="navbar-left">
-          <span className="navbar-brand">SmartPrep AI</span>
+          <span className="navbar-brand">
+            <span className="app-brand__mark" aria-hidden="true">
+              <Sparkles size={15} strokeWidth={2.4} />
+            </span>
+            <span>smartprep<span className="app-brand__ai">.ai</span></span>
+          </span>
         </div>
         <div className="navbar-right">
-          <button className="Dashboard" onClick={() => navigate("/feature")}>
+          <button
+            type="button"
+            className="Dashboard"
+            onClick={() => navigate("/feature")}
+          >
+            <ArrowLeft size={14} strokeWidth={2.4} aria-hidden="true" />
             Dashboard
           </button>
         </div>
-      </div>
+      </header>
 
-      <h1>AI Auto Quiz</h1>
-
-      {!quizStarted && (
-        <div className="quiz-intro">
-          <p>Customize your quiz by selecting options below:</p>
-          <div className="quiz-settings">
-            <input
-              type="text"
-              placeholder="Enter topic"
-              value={topic}
-              onChange={handleTopicChange}
-              className="topic-input"
-            />
-            <input
-              type="number"
-              value={numQuestions}
-              onChange={handleNumQuestionsChange}
-              className="num-questions-input"
-              min="1"
-            />
-            <div className="difficulty-buttons">
-              {["easy", "medium", "hard"].map((level) => (
-                <button
-                  key={level}
-                  onClick={() => handleDifficultyChange(level)}
-                  className={`difficulty-button ${
-                    difficulty === level ? "selected" : ""
-                  }`}
-                >
-                  {level.charAt(0).toUpperCase() + level.slice(1)}
-                </button>
-              ))}
-            </div>
-            <button onClick={startQuiz} className="start-button">
-              {buttonText}
-            </button>
-          </div>
+      <main className="auto-quiz-main">
+        <div className="auto-quiz-intro-block">
+          <span className="app-eyebrow">PRACTICE</span>
+          <h1>AI Auto Quiz</h1>
+          {userName ? (
+            <p className="auto-quiz-user-hint">Ready when you are, {userName}.</p>
+          ) : null}
         </div>
-      )}
 
-      {quizStarted && (
-        <div className="quiz-section">
-          <h2 className="quiz-heading">Check Your Knowledge</h2> {/* New heading */}
-          {questions.map((question, index) => (
-            <div key={index} className="question-container">
-              <h3>
-                {index + 1}. {question.question}
-              </h3>
-              <div className="options">
-                {question.options.map((option, optionIndex) => {
-                  const isSelected = answers[index] === optionIndex;
-                  const isCorrect = question.correct === optionIndex;
-
-                  let optionClass = "";
-                  if (isResultsGenerated) {
-                    if (isCorrect) {
-                      optionClass = "correct"; // Highlight correct answer
-                    } else if (isSelected) {
-                      optionClass = "incorrect"; // Highlight wrong selection
-                    }
-                  } else if (isSelected) {
-                    optionClass = "selected"; // Highlight current selection
-                  }
-
-                  return (
-                    <label key={optionIndex} className={`option-label ${optionClass}`}>
-                      <input
-                        type="radio"
-                        name={`question-${index}`}
-                        value={optionIndex}
-                        checked={isSelected}
-                        onChange={() => handleAnswerChange(index, optionIndex)}
-                        disabled={isResultsGenerated}
-                      />
-                      {option}
-                    </label>
-                  );
-                })}
+        {!quizStarted && (
+          <section className="quiz-intro" aria-labelledby="quiz-setup-heading">
+            <h2 id="quiz-setup-heading" className="visually-hidden">Quiz setup</h2>
+            <p>Customize your quiz by selecting options below:</p>
+            <div className="quiz-settings">
+              <label className="app-field-label" htmlFor="quiz-topic">Topic</label>
+              <input
+                id="quiz-topic"
+                type="text"
+                placeholder="Enter topic"
+                value={topic}
+                onChange={handleTopicChange}
+                className="topic-input"
+              />
+              <label className="app-field-label" htmlFor="quiz-num">Number of questions</label>
+              <input
+                id="quiz-num"
+                type="number"
+                value={numQuestions}
+                onChange={handleNumQuestionsChange}
+                className="num-questions-input"
+                min="1"
+              />
+              <span className="app-field-label" id="difficulty-label">Difficulty</span>
+              <div
+                className="difficulty-buttons"
+                role="group"
+                aria-labelledby="difficulty-label"
+              >
+                {["easy", "medium", "hard"].map((level) => (
+                  <button
+                    type="button"
+                    key={level}
+                    onClick={() => handleDifficultyChange(level)}
+                    className={`difficulty-button ${
+                      difficulty === level ? "selected" : ""
+                    }`}
+                    aria-pressed={difficulty === level}
+                  >
+                    {level.charAt(0).toUpperCase() + level.slice(1)}
+                  </button>
+                ))}
               </div>
+              <button type="button" onClick={startQuiz} className="start-button">
+                {buttonText}
+              </button>
             </div>
-          ))}
-          {!isResultsGenerated && (
-            <button
-              onClick={handleGenerateResults}
-              className="generate-results-button"
-            >
-              Check your answers
-            </button>
-          )}
-          {isResultsGenerated && (
-            <button onClick={saveQuizResults} className="save-results-button">
-              Submit Results
-            </button>
-          )}
-        </div>
-      )}
+          </section>
+        )}
+
+        {quizStarted && (
+          <section className="quiz-section" aria-labelledby="quiz-heading">
+            <h2 id="quiz-heading" className="quiz-heading">Check Your Knowledge</h2>
+            {questions.map((question, index) => (
+              <div key={index} className="question-container">
+                <h3>
+                  {index + 1}. {question.question}
+                </h3>
+                <div className="options" role="radiogroup" aria-label={`Question ${index + 1}`}>
+                  {question.options.map((option, optionIndex) => {
+                    const isSelected = answers[index] === optionIndex;
+                    const isCorrect = question.correct === optionIndex;
+
+                    let optionClass = "";
+                    if (isResultsGenerated) {
+                      if (isCorrect) {
+                        optionClass = "correct"; // Highlight correct answer
+                      } else if (isSelected) {
+                        optionClass = "incorrect"; // Highlight wrong selection
+                      }
+                    } else if (isSelected) {
+                      optionClass = "selected"; // Highlight current selection
+                    }
+
+                    return (
+                      <label key={optionIndex} className={`option-label ${optionClass}`}>
+                        <input
+                          type="radio"
+                          name={`question-${index}`}
+                          value={optionIndex}
+                          checked={isSelected}
+                          onChange={() => handleAnswerChange(index, optionIndex)}
+                          disabled={isResultsGenerated}
+                        />
+                        <span>{option}</span>
+                      </label>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
+            <div className="quiz-actions">
+              {!isResultsGenerated && (
+                <button
+                  type="button"
+                  onClick={handleGenerateResults}
+                  className="generate-results-button"
+                >
+                  Check your answers
+                </button>
+              )}
+              {isResultsGenerated && (
+                <button
+                  type="button"
+                  onClick={saveQuizResults}
+                  className="save-results-button"
+                >
+                  Submit Results
+                </button>
+              )}
+            </div>
+          </section>
+        )}
+      </main>
     </div>
   );
 };

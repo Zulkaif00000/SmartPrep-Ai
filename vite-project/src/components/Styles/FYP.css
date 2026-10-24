@@ -1,52 +1,231 @@
-/* Forgot Password Page CSS */
-
 .forgot-password {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    background: #f0f2f5;
+  --app-ink: #20162d;
+  --app-muted: #777181;
+  --app-paper: #f7f5f1;
+  --app-purple: #6d42e5;
+  --app-line: rgba(32, 22, 45, 0.12);
+  position: relative;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 24px clamp(16px, 5vw, 72px);
+  overflow: hidden;
+  color: var(--app-ink);
+  background:
+    radial-gradient(ellipse at 8% 10%, rgba(197, 173, 255, 0.2), transparent 32%),
+    radial-gradient(ellipse at 96% 92%, rgba(164, 127, 239, 0.15), transparent 34%),
+    var(--app-paper);
+  font-family: "DM Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+.forgot-password *,
+.forgot-password *::before,
+.forgot-password *::after {
+  box-sizing: border-box;
+}
+
+.forgot-password .fyp-header {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: min(100%, 480px);
+  align-items: center;
+  justify-content: space-between;
+  margin: 0 auto 24px;
+}
+
+.forgot-password .fyp-brand,
+.forgot-password .fyp-back-link {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
+}
+
+.forgot-password .fyp-brand {
+  gap: 10px;
+  color: var(--app-ink);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
+}
+
+.forgot-password .fyp-brand__mark {
+  display: inline-grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  color: #fff;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #a17aff, #6942df 75%);
+  box-shadow: 0 4px 12px rgba(109, 66, 229, 0.25);
+}
+
+.forgot-password .fyp-brand__ai {
+  color: #8b6ee4;
+}
+
+.forgot-password .fyp-back-link {
+  gap: 7px;
+  color: #655e6d;
+  font-size: 12px;
+  font-weight: 600;
+  transition: color 180ms ease;
+}
+
+.forgot-password .fyp-back-link:hover {
+  color: var(--app-purple);
+}
+
+.forgot-password .fyp-back-link:focus-visible {
+  outline: 2px solid #9a7be9;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+.forgot-password .fyp-card {
+  display: flex;
+  width: 100%;
+  max-width: 480px;
+  flex-direction: column;
+  align-items: stretch;
+  margin: 0;
+  padding: clamp(32px, 5vw, 44px) clamp(28px, 5vw, 42px);
+  text-align: left;
+  border: 1px solid rgba(32, 22, 45, 0.08);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 28px 80px rgba(44, 30, 62, 0.14), 0 4px 16px rgba(44, 30, 62, 0.05);
+}
+
+.forgot-password .fyp-eyebrow {
+  display: inline-block;
+  margin: 0 0 12px;
+  color: #8b6ee4;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.forgot-password h1 {
+  margin: 0 0 9px;
+  color: var(--app-ink);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: clamp(32px, 4vw, 42px);
+  font-weight: 400;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  text-shadow: none;
+  animation: none;
+  text-align: left;
+}
+
+.forgot-password .fyp-kicker {
+  margin: 0 0 28px;
+  color: var(--app-muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.forgot-password .fyp-field-label {
+  margin: 0 0 7px;
+  color: #40394a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15px;
+}
+
+.forgot-password input {
+  width: 100%;
+  height: 48px;
+  margin: 0 0 18px;
+  padding: 0 15px;
+  color: var(--app-ink);
+  border: 1px solid rgba(32, 22, 45, 0.13);
+  border-radius: 9px;
+  outline: none;
+  background: #fbfafc;
+  font: inherit;
+  font-size: 13px;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.forgot-password input::placeholder {
+  color: #a39daa;
+}
+
+.forgot-password input:focus {
+  border-color: #9a7be9;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(130, 93, 226, 0.12);
+}
+
+.forgot-password .fyp-submit {
+  display: inline-flex;
+  width: 100%;
+  min-height: 46px;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  margin-top: 4px;
+  padding: 0 20px;
+  color: #fff;
+  border: 0;
+  border-radius: 9px;
+  background: linear-gradient(115deg, #7e59e8, #5834c6);
+  box-shadow: 0 8px 18px rgba(109, 66, 229, 0.22);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.forgot-password .fyp-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 11px 22px rgba(109, 66, 229, 0.3);
+  background: linear-gradient(115deg, #7e59e8, #5834c6);
+}
+
+.forgot-password .fyp-submit:focus-visible {
+  outline: 2px solid #9a7be9;
+  outline-offset: 2px;
+}
+
+.forgot-password .fyp-footnote {
+  margin: 19px 0 0;
+  color: #96909c;
+  font-size: 10px;
+  text-align: center;
+}
+
+@media (max-width: 420px) {
+  .forgot-password {
+    justify-content: flex-start;
+    padding: 20px 14px;
   }
-  
-  .forgot-password form {
-    width: 100%;
-    max-width: 400px;
-    background: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    text-align: center;
+
+  .forgot-password .fyp-header {
+    margin-bottom: 18px;
   }
-  
-  .forgot-password h1 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-    color: #333;
+
+  .forgot-password .fyp-back-link {
+    font-size: 11px;
   }
-  
-  .forgot-password input {
-    width: 100%;
-    margin: 10px 0;
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    font-size: 1rem;
+
+  .forgot-password .fyp-card {
+    padding: 28px 22px;
+    border-radius: 14px;
   }
-  
-  .forgot-password button {
-    padding: 10px 20px;
-    margin-top: 15px;
-    border: none;
-    border-radius: 5px;
-    background: #007bff;
-    color: #fff;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: background 0.3s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .forgot-password *,
+  .forgot-password *::before,
+  .forgot-password *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
-  
-  .forgot-password button:hover {
-    background: #0056b3;
-  }
-  
+}

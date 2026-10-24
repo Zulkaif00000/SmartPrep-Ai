@@ -1,197 +1,397 @@
-/* PDF-QA Container */
 .pdf-qa-container {
-  font-family: 'Arial', sans-serif;
+  --app-ink: #20162d;
+  --app-muted: #777181;
+  --app-paper: #f7f5f1;
+  --app-purple: #6d42e5;
+  --app-lilac: #c5adff;
+  --app-line: rgba(32, 22, 45, 0.12);
+  position: relative;
   display: flex;
-  flex-direction: row; /* Align content and answer container horizontally */
-  justify-content: center; /* Space between content and answers */
-  align-items: center; /* Align content at the top */
-  height: 100vh; /* Full height of the viewport */
-  width: 100vw; /* Full width of the viewport */
-  background: linear-gradient(to right, #061d6a, #274f7c, #a49e9f, #3677a3); /* Multi-color gradient */
-  background-size: 400% 400%; /* Creates a smoother gradient */
-  animation: gradientAnimation 15s ease infinite; /* Adds animation for dynamic effect */
-  color: #fff; /* Text color for better visibility */
-  box-sizing: border-box; /* Ensures padding doesn't affect width/height */
-  overflow: hidden; /* Prevents scrollbars */
-  padding: 20px 40px; /* Adjust padding for spacing */
-}
-
-/* Gradient Animation */
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-/* Navbar Styles */
-.navbar5 {
-  position: absolute;
-  top: 0;
-  left: 0;
+  min-height: 100vh;
   width: 100%;
-  background-color: rgba(0, 0, 0, 0.7); /* Transparent black */
-  background: linear-gradient(135deg, #0c3a6d, #4d606a, #063363);
+  flex-direction: column;
+  align-items: stretch;
+  color: var(--app-ink);
+  background:
+    radial-gradient(ellipse at 8% 10%, rgba(197, 173, 255, 0.2), transparent 32%),
+    radial-gradient(ellipse at 96% 92%, rgba(164, 127, 239, 0.15), transparent 34%),
+    var(--app-paper);
+  font-family: "DM Sans", Inter, ui-sans-serif, system-ui, sans-serif;
+  overflow: visible;
+  padding: 0;
+}
+
+.pdf-qa-container *,
+.pdf-qa-container *::before,
+.pdf-qa-container *::after {
+  box-sizing: border-box;
+}
+
+.pdf-qa-container .visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.pdf-qa-container .app-brand__mark {
+  display: inline-grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  color: #fff;
+  border-radius: 10px;
+  background: linear-gradient(145deg, #a17aff, #6942df 75%);
+  box-shadow: 0 4px 12px rgba(109, 66, 229, 0.25);
+  flex-shrink: 0;
+}
+
+.pdf-qa-container .app-brand__ai {
+  color: #8b6ee4;
+}
+
+.pdf-qa-container .app-eyebrow {
+  display: inline-block;
+  margin: 0 0 10px;
+  color: #8b6ee4;
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 1.8px;
+}
+
+.pdf-qa-container .app-field-label {
+  display: block;
+  margin: 0 0 7px;
+  color: #40394a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.15px;
+  text-align: left;
+}
+
+/* Navbar */
+.pdf-qa-container .navbar5 {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
   display: flex;
-  justify-content: space-between;
+  width: 100%;
+  min-height: 68px;
   align-items: center;
-  padding: 10px 20px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  color: #fff;
-  z-index: 1000; /* Ensures navbar is always on top */
+  justify-content: space-between;
+  padding: 0 clamp(18px, 4vw, 48px);
+  border-bottom: 1px solid var(--app-line);
+  background: rgba(247, 245, 241, 0.92);
+  backdrop-filter: blur(10px);
+  color: var(--app-ink);
+  box-shadow: none;
 }
 
-.navbar-brand {
-  font-size: 1.5rem;
-  font-weight: bold;
+.pdf-qa-container .navbar-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--app-ink);
+  font-size: 17px;
+  font-weight: 800;
+  letter-spacing: -0.8px;
 }
 
-.Dashboard-button {
-  background-color: #4c51bf;
-  color: #fff;
-  border: none;
-  padding: 10px 15px;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: bold;
+.pdf-qa-container .Dashboard {
+  display: inline-flex;
+  min-height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  padding: 0 16px;
+  color: #655e6d;
+  border: 1px solid var(--app-line);
+  border-radius: 999px;
+  background: #fff;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.3s ease;
+  font: inherit;
+  font-size: 12px;
+  font-weight: 700;
+  transition: color 180ms ease, border-color 180ms ease, box-shadow 180ms ease;
 }
 
-.Dashboard-button:hover {
-  background-color: #3b3f9d;
-  font-weight: bold;
-  transform: scale(1.05);
+.pdf-qa-container .Dashboard:hover {
+  color: var(--app-purple);
+  border-color: rgba(109, 66, 229, 0.35);
+  box-shadow: 0 4px 12px rgba(109, 66, 229, 0.1);
 }
 
-/* Content Wrapper */
-.pdf-qa-content {
-  width: 45%;
-  background: rgba(255, 255, 255, 0.1); /* Transparent white background */
-  padding: 30px;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(190, 70, 156, 0.7);
-  text-align: center;
+.pdf-qa-container .Dashboard:focus-visible {
+  outline: 2px solid #9a7be9;
+  outline-offset: 2px;
 }
 
-/* Heading */
+.pdf-qa-layout {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: clamp(28px, 5vw, 48px) clamp(18px, 4vw, 40px) 72px;
+}
+
+.pdf-qa-intro-block {
+  margin-bottom: 28px;
+  text-align: left;
+}
+
 .pdf-qa-container h1 {
-  color: #f1eded;
-  font-size: 2.5rem;
-  margin-bottom: 20px;
+  margin: 0 0 8px;
+  color: var(--app-ink);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: clamp(36px, 5vw, 48px);
+  font-weight: 400;
+  letter-spacing: -1.2px;
+  line-height: 1.1;
+  text-shadow: none;
+  animation: none;
+  text-align: left;
 }
 
-/* Upload Section */
-.pdf-upload-section {
+.pdf-qa-kicker {
+  margin: 0;
+  color: var(--app-muted);
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.pdf-qa-columns {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+.pdf-qa-container .pdf-qa-content,
+.pdf-qa-container .answer-container {
+  width: 100%;
+  margin: 0;
+  padding: clamp(24px, 3vw, 32px);
+  border: 1px solid rgba(32, 22, 45, 0.08);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 16px 40px rgba(44, 30, 62, 0.07);
+  text-align: left;
+}
+
+.pdf-qa-container .pdf-upload-section {
   display: flex;
   flex-direction: column;
-  margin-bottom: 20px;
+  margin-bottom: 22px;
 }
 
-.upload-label {
-  font-size: 1.2rem;
-  margin-bottom: 10px;
-  color: #f7f2f2;
-}
-
-.file-input {
-  margin: 10px auto;
-  padding: 10px;
-  font-size: 1rem;
-  background-color: rgba(190, 70, 156, 0.8);
-  border: none;
-  border-radius: 5px;
-  width: 100%;
-  color: #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-
-.file-name {
-  font-size: 0.9rem;
-  color: #f2f0f0;
-  margin-top: 10px;
-}
-
-/* Question Form */
-.question-form {
-  margin-top: 20px;
-  width: 100%;
-}
-
-.question-input {
-  width: 100%;
-  height: 100px;
-  font-size: 1rem;
-  padding: 10px;
-  border: none;
-  border-radius: 5px;
-  margin-bottom: 20px;
-  color: #333;
-  background-color: #f8f9fa;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-/* Submit Button */
-.submit-button {
-  background-color: #5a67d8;
-  color: #fff;
-  padding: 12px 25px;
-  font-size: 1.2rem;
-  border: none;
-  border-radius: 10px;
+.pdf-qa-container .upload-label {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 148px;
+  padding: 28px 20px;
+  color: var(--app-ink);
+  border: 1.5px dashed rgba(109, 66, 229, 0.35);
+  border-radius: 14px;
+  background: rgba(197, 173, 255, 0.1);
   cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  text-align: center;
+  transition: border-color 180ms ease, background 180ms ease, box-shadow 180ms ease;
 }
 
-.submit-button:hover {
-  background-color: #4c51bf;
-  transform: scale(1.05);
+.pdf-qa-container .upload-label:hover {
+  border-color: var(--app-purple);
+  background: rgba(197, 173, 255, 0.16);
 }
 
-/* Answer Container */
-.answer-container {
-  width: 45%; /* Adjusted width for the answer container */
-  max-height: 80vh; /* Limit height for scrolling */
-  overflow-y: auto;
-  background: rgba(0, 0, 0, 0.6); /* Slightly transparent background */
-  padding: 20px;
-  border-radius: 15px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+.pdf-qa-container .upload-label:focus-within {
+  border-color: #9a7be9;
+  box-shadow: 0 0 0 3px rgba(130, 93, 226, 0.12);
 }
 
-.answer-container h3 {
-  color: #fbf8f8;
-  font-size: 1.5rem;
-  margin-bottom: 15px;
+.upload-label__icon {
+  display: inline-grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  margin-bottom: 4px;
+  color: var(--app-purple);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.7);
 }
 
-.answer-list {
-  font-size: 1rem;
-  color: #f3efef;
+.upload-label__title {
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.upload-label__hint {
+  color: var(--app-muted);
+  font-size: 12px;
+}
+
+.pdf-qa-container .file-input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+  opacity: 0;
+}
+
+.pdf-qa-container .file-input:focus {
+  outline: none;
+}
+
+.pdf-qa-container .file-name {
+  display: inline-flex;
+  align-self: flex-start;
+  margin: 12px 0 0;
+  padding: 8px 12px;
+  color: #40394a;
+  border: 1px solid rgba(109, 66, 229, 0.2);
+  border-radius: 999px;
+  background: rgba(197, 173, 255, 0.14);
+  font-size: 12px;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.pdf-qa-container .question-form {
+  width: 100%;
+  margin: 0;
+}
+
+.pdf-qa-container .question-input {
+  width: 100%;
+  min-height: 120px;
+  margin: 0 0 18px;
+  padding: 14px 15px;
+  color: var(--app-ink);
+  border: 1px solid rgba(32, 22, 45, 0.13);
+  border-radius: 9px;
+  outline: none;
+  background: #fbfafc;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.55;
+  resize: vertical;
+  box-shadow: none;
+  transition: border-color 180ms ease, box-shadow 180ms ease, background 180ms ease;
+}
+
+.pdf-qa-container .question-input::placeholder {
+  color: #a39daa;
+}
+
+.pdf-qa-container .question-input:focus {
+  border-color: #9a7be9;
+  background: #fff;
+  box-shadow: 0 0 0 3px rgba(130, 93, 226, 0.12);
+}
+
+.pdf-qa-container .submit-button {
+  display: inline-flex;
+  width: 100%;
+  min-height: 48px;
+  align-items: center;
+  justify-content: center;
+  padding: 0 20px;
+  color: #fff;
+  border: 0;
+  border-radius: 9px;
+  background: linear-gradient(115deg, #7e59e8, #5834c6);
+  box-shadow: 0 8px 18px rgba(109, 66, 229, 0.22);
+  cursor: pointer;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 700;
+  transition: transform 180ms ease, box-shadow 180ms ease, opacity 180ms ease;
+}
+
+.pdf-qa-container .submit-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 11px 22px rgba(109, 66, 229, 0.3);
+  background: linear-gradient(115deg, #7e59e8, #5834c6);
+}
+
+.pdf-qa-container .submit-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: 0 4px 12px rgba(109, 66, 229, 0.14);
+}
+
+.pdf-qa-container .submit-button:focus-visible {
+  outline: 2px solid #9a7be9;
+  outline-offset: 2px;
+}
+
+.pdf-qa-container .answer-container {
+  max-height: none;
+  overflow: visible;
+}
+
+.pdf-qa-container .answer-container h3 {
+  margin: 0 0 16px;
+  color: var(--app-ink);
+  font-family: "DM Serif Display", Georgia, serif;
+  font-size: 24px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+}
+
+.pdf-qa-container .answer-list {
+  margin: 0;
+  padding: 0 0 0 18px;
+  color: #40394a;
+  font-size: 14px;
+  line-height: 1.7;
   list-style-type: disc;
-  margin-left: 20px;
-  line-height: 1.6;
 }
 
-.answer-list li {
+.pdf-qa-container .answer-list li {
   margin-bottom: 10px;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
-  .pdf-qa-container {
-    flex-direction: column; /* Stack elements on smaller screens */
-    align-items: center;
+.pdf-qa-container .answer-list li:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+  .pdf-qa-columns {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 420px) {
+  .pdf-qa-container .navbar5 {
+    padding: 0 14px;
   }
 
-  .pdf-qa-content,
-  .answer-container {
-    width: 90%;
-    margin-bottom: 20px; /* Add spacing for stacked elements */
+  .pdf-qa-container .pdf-qa-content,
+  .pdf-qa-container .answer-container {
+    padding: 20px 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdf-qa-container *,
+  .pdf-qa-container *::before,
+  .pdf-qa-container *::after {
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
   }
 }

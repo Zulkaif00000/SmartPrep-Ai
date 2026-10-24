@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { Sparkles, ArrowLeft } from "lucide-react";
 import "./Styles/Flashcard.css";
 
 const FlashcardApp = () => {
@@ -148,91 +149,120 @@ const FlashcardApp = () => {
   return (
     <div className="flashcard-app">
       {/* Navbar */}
-      <div className="navbar56">
+      <header className="navbar56">
         <div className="navbar-left">
-          <span className="navbar-brand">SmartPrep AI</span>
+          <span className="navbar-brand">
+            <span className="app-brand__mark" aria-hidden="true">
+              <Sparkles size={15} strokeWidth={2.4} />
+            </span>
+            <span>smartprep<span className="app-brand__ai">.ai</span></span>
+          </span>
         </div>
         <div className="navbar-right">
           <button
+            type="button"
             className="Dashoard"
             onClick={() => navigate("/feature")}
           >
+            <ArrowLeft size={14} strokeWidth={2.4} aria-hidden="true" />
             Dashboard
           </button>
         </div>
-      </div>
+      </header>
 
-      <h1>AI Flashcard Generator</h1>
-      <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          generateFlashcards();
-        }}
-        className="search-form"
-      >
-        <input
-          type="text"
-          placeholder="Enter a topic"
-          value={topic}
-          onChange={(e) => setTopic(e.target.value)}
-          className="search-input"
-        />
-        <input
-          type="number"
-          min="1"
-          max="20"
-          value={numFlashcards}
-          onChange={(e) => setNumFlashcards(e.target.value)}
-          className="flashcard-count-input"
-          placeholder="Number of Flashcards"
-        />
-        <button type="submit" className="search-button">
-          {buttonText}
-        </button>
-      </form>
+      <main className="flashcard-main">
+        <div className="flashcard-intro-block">
+          <span className="app-eyebrow">REVIEW</span>
+          <h1>AI Flashcard Generator</h1>
+          <p className="flashcard-kicker">Build a quick deck and flip through the essentials.</p>
+        </div>
 
-      {isFlashcardsActive && flashcards.length > 0 && (
-        <div className="flashcard-container">
-          <div
-            className={`flashcard ${
-              flashcards[currentCardIndex].isFlipped ? "flipped" : ""
-            }`}
-          >
-            <div className="flashcard-front">
-              {flashcards[currentCardIndex].front}
-            </div>
-            <div className="flashcard-back">
-              {flashcards[currentCardIndex].back}
-            </div>
-          </div>
-          <div className="time-settings">
-            <label htmlFor="time-interval">Set Time (seconds):</label>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            generateFlashcards();
+          }}
+          className="search-form"
+        >
+          <div className="search-form__field">
+            <label className="app-field-label" htmlFor="flashcard-topic">Topic</label>
             <input
-              type="number"
-              id="time-interval"
-              min="5"
-              max="60"
-              value={timeInterval}
-              onChange={(e) => setTimeInterval(e.target.value)}
-              className="time-input"
+              id="flashcard-topic"
+              type="text"
+              placeholder="Enter a topic"
+              value={topic}
+              onChange={(e) => setTopic(e.target.value)}
+              className="search-input"
             />
           </div>
-          {currentCardIndex + 1 >= flashcards.length ? (
-            <button onClick={handleSubmit} className="submit-button">
-              Submit
-            </button>
-          ) : (
-            <>
-              <button onClick={handleStart} className="start-button">
-                Start
-              </button>
-              <button onClick={handleNextCard} className="next-button">
-                Next Flashcard
-              </button>
-            </>
-          )}
-        </div>
-      )}
+          <div className="search-form__field search-form__field--narrow">
+            <label className="app-field-label" htmlFor="flashcard-count">Number of cards</label>
+            <input
+              id="flashcard-count"
+              type="number"
+              min="1"
+              max="20"
+              value={numFlashcards}
+              onChange={(e) => setNumFlashcards(e.target.value)}
+              className="flashcard-count-input"
+              placeholder="Number of Flashcards"
+            />
+          </div>
+          <button type="submit" className="search-button">
+            {buttonText}
+          </button>
+        </form>
+
+        {isFlashcardsActive && flashcards.length > 0 && (
+          <section className="flashcard-container" aria-live="polite">
+            <p className="flashcard-counter">
+              Card {currentCardIndex + 1} of {flashcards.length}
+            </p>
+            <div
+              className={`flashcard ${
+                flashcards[currentCardIndex].isFlipped ? "flipped" : ""
+              }`}
+            >
+              <div className="flashcard-front">
+                {flashcards[currentCardIndex].front}
+              </div>
+              <div className="flashcard-back">
+                {flashcards[currentCardIndex].back}
+              </div>
+            </div>
+            <div className="flashcard-controls">
+              <div className="time-settings">
+                <label htmlFor="time-interval">Set Time (seconds):</label>
+                <input
+                  type="number"
+                  id="time-interval"
+                  min="5"
+                  max="60"
+                  value={timeInterval}
+                  onChange={(e) => setTimeInterval(e.target.value)}
+                  className="time-input"
+                />
+              </div>
+              <div className="flashcard-actions">
+                {currentCardIndex + 1 >= flashcards.length ? (
+                  <button type="button" onClick={handleSubmit} className="submit-button">
+                    Submit
+                  </button>
+                ) : (
+                  <>
+                    <button type="button" onClick={handleStart} className="start-button">
+                      Start
+                    </button>
+                    <button type="button" onClick={handleNextCard} className="next-button">
+                      Next Flashcard
+                    </button>
+                  </>
+                )}
+              </div>
+            </div>
+          </section>
+        )}
+      </main>
     </div>
   );
 };

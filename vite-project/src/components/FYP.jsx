@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+import { ArrowLeft, ArrowRight, Sparkles } from "lucide-react";
 import "./Styles/FYP.css";
 
 function ForgotPassword() {
@@ -37,30 +38,51 @@ function ForgotPassword() {
 
   return (
     <div className="forgot-password">
-      <form onSubmit={handleForgotPassword}>
+      <header className="fyp-header">
+        <Link to="/" className="fyp-brand" aria-label="SmartPrep AI home">
+          <span className="fyp-brand__mark"><Sparkles size={15} strokeWidth={2.4} /></span>
+          <span>smartprep<span className="fyp-brand__ai">.ai</span></span>
+        </Link>
+        <Link to="/auth" className="fyp-back-link">
+          <ArrowLeft size={14} /> Back to sign in
+        </Link>
+      </header>
+
+      <form onSubmit={handleForgotPassword} className="fyp-card">
+        <span className="fyp-eyebrow">ACCOUNT</span>
         <h1>Forgot Password</h1>
+        <p className="fyp-kicker">Choose a new password and get back to your study space.</p>
+        <label className="fyp-field-label" htmlFor="fyp-email">Email address</label>
         <input
+          id="fyp-email"
           type="email"
-          placeholder="Enter your email"
+          placeholder="you@example.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
+        <label className="fyp-field-label" htmlFor="fyp-new-password">New password</label>
         <input
+          id="fyp-new-password"
           type="password"
           placeholder="Enter new password"
           value={newPassword}
           onChange={(e) => setNewPassword(e.target.value)}
           required
         />
+        <label className="fyp-field-label" htmlFor="fyp-confirm-password">Confirm new password</label>
         <input
+          id="fyp-confirm-password"
           type="password"
           placeholder="Confirm new password"
           value={confirmNewPassword}
           onChange={(e) => setConfirmNewPassword(e.target.value)}
           required
         />
-        <button type="submit">Reset Password</button>
+        <button type="submit" className="fyp-submit">
+          Reset Password <ArrowRight size={15} />
+        </button>
+        <p className="fyp-footnote">You’ll use this password the next time you sign in.</p>
       </form>
     </div>
   );

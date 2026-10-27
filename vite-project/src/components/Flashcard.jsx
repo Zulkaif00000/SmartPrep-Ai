@@ -35,7 +35,7 @@ const FlashcardApp = () => {
     setButtonText("Fetching Flashcards..."); // Update button text
 
     try {
-      const response = await ffetch(`${API_URL}/api/generate-flashcards`, {
+      const response = await fetch(`${API_URL}/api/generate-flashcards`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ topic, numFlashcards }),

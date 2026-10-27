@@ -1,5 +1,5 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 import Feature from "./components/Feature";
 import Autoquiz from "./components/Autoquiz";
 import Flashcard from "./components/Flashcard";
@@ -15,6 +15,7 @@ function App() {
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/auth" element={<Auth />} />
+        <Route path="/login" element={<Navigate to="/auth" replace />} />
         <Route path="/feature" element={<Feature />} />
         <Route path="/auto-quiz" element={<Autoquiz />} />
         <Route path="/flash-card" element={<Flashcard />} />
